@@ -6,6 +6,7 @@ use Craue\FormFlowBundle\Event\GetStepsEvent;
 use Craue\FormFlowBundle\Form\FormFlowEvents;
 use Craue\FormFlowBundle\Tests\UnitTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationRequestHandler;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormBuilder;
@@ -338,13 +339,12 @@ class FormFlowTest extends UnitTestCase {
 		$dispatcher = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
 		$factory = Forms::createFormFactoryBuilder()->getFormFactory();
 		$formBuilder = new FormBuilder(null, 'stdClass', $dispatcher, $factory);
-		$useFqcn = method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix');
 
 		$form = $formBuilder
 			->setCompound(true)
 			// TODO replace by `$this->createMock('Symfony\Component\Form\DataMapperInterface')` as soon as PHPUnit >= 5.4 is required
 			->setDataMapper($this->getMockBuilder('Symfony\Component\Form\DataMapperInterface')->getMock())
-			->add('aField', $useFqcn ? 'Symfony\Component\Form\Extension\Core\Type\TextType' : 'text')
+			->add('aField', TextType::class)
 			->setMethod($httpMethod)
 			->setRequestHandler(new HttpFoundationRequestHandler())
 			->getForm()

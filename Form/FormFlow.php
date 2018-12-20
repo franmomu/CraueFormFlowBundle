@@ -14,6 +14,7 @@ use Craue\FormFlowBundle\Exception\InvalidTypeException;
 use Craue\FormFlowBundle\Storage\DataManagerInterface;
 use Craue\FormFlowBundle\Util\StringUtil;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -964,8 +965,7 @@ abstract class FormFlow implements FormFlowInterface {
 		$options = $this->getFormOptions($stepNumber, $options);
 
 		if ($formType === null) {
-			$useFqcn = method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix');
-			$formType = $useFqcn ? 'Symfony\Component\Form\Extension\Core\Type\FormType' : 'form';
+			$formType = FormType::class;
 		}
 
 		return $this->formFactory->create($formType, $this->formData, $options);

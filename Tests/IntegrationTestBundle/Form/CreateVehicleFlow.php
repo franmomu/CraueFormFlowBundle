@@ -16,17 +16,14 @@ class CreateVehicleFlow extends FormFlow {
 	 * {@inheritDoc}
 	 */
 	protected function loadStepsConfig() {
-		$useFqcn = method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix');
-		$formType = $useFqcn ? 'Craue\FormFlowBundle\Tests\IntegrationTestBundle\Form\CreateVehicleForm' : 'createVehicle';
-
 		return array(
 			array(
 				'label' => 'wheels',
-				'form_type' => $formType,
+				'form_type' => CreateVehicleForm::class,
 			),
 			array(
 				'label' => 'engine',
-				'form_type' => $formType,
+				'form_type' => CreateVehicleForm::class,
 				'skip' => function($estimatedCurrentStepNumber, FormFlowInterface $flow) {
 					return $estimatedCurrentStepNumber > 1 && !$flow->getFormData()->canHaveEngine();
 				},

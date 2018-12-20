@@ -15,21 +15,18 @@ class PhotoUploadFlow extends FormFlow {
 	 * {@inheritDoc}
 	 */
 	protected function loadStepsConfig() {
-		$useFqcn = method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix');
-		$formType = $useFqcn ? 'Craue\FormFlowBundle\Tests\IntegrationTestBundle\Form\PhotoUploadForm' : 'photoUpload';
-
 		return array(
 			array(
 				'label' => 'select a photo',
-				'form_type' => $formType,
+				'form_type' => PhotoUploadForm::class,
 			),
 			array(
 				'label' => 'describe the photo',
-				'form_type' => $formType,
+				'form_type' => PhotoUploadForm::class,
 			),
 			array(
 				'label' => 'confirmation',
-				'form_type' => $formType,
+				'form_type' => PhotoUploadForm::class,
 			),
 		);
 	}
